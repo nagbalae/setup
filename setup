@@ -14,7 +14,9 @@ git clone $DOTS
 
 #install required packages
 cd dotfiles
-cat reqpacks | xargs yay -S
+#from archlinux.org pid=1948284
+exec 9<reqpacks
+while read -u9 pkg; do yay -S --needed $pkg; done
 cd ..
 
 #make & install dwm
