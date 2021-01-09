@@ -1,0 +1,32 @@
+#!/bin/bash
+#A script, that does 2 things, installs the packages I use, and then sets them up with the configs.
+#Should be run with a user, who has sudo privileges
+SETUP=https://github.com/nagbalae/setup
+DWM=https://github.com/nagbalae/dwm
+DOTS=https://github.com/nagbalae/dotfiles
+
+#clone stuff into ~/git
+cd
+mkdir git
+cd git
+git clone $DWM
+git clone $DOTS
+
+#install required packages
+cd dotfiles
+cat reqpacks | xargs yay -S
+cd ..
+
+#make & install dwm
+cd dwm
+sudo make install
+cd ..
+
+#move configs and scripts to their place
+cd
+mkdir .config
+mkdir .sh
+cp -r git/dotfiles/config/* .config/
+cp -r git/dotfiles/sh/* .sh/
+cp git/dotfiles/* .
+
